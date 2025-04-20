@@ -1,0 +1,16 @@
+footer {
+    background-color: black;
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0rem 1.75rem;
+    height: 80px;
+    z-index: 100;
+    color: white;
+}
+
+footer a {
+    color: white;
+}

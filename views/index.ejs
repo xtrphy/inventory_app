@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/header/header.css">
+    <link rel="stylesheet" href="/footer/footer.css">
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <video autoplay muted loop id="background-video">
+        <source src="/videos/smartphone-bg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <%- include('./partials/header') %>
+
+        <section class="hero">
+            <h1>EXPLORE THE WORLD OF SMARTPHONES</h1>
+            <a class="all-brands-btn" href="/brands">View All</a>
+        </section>
+
+        <section class="popular-brands">
+            <h2>Brands</h2>
+            <% brands.forEach(brand=> { %>
+                <div class="card">
+                    <h2>
+                        <%= brand.name %>
+                    </h2>
+                    <img src="<%= brand.image_url %>" alt="<%= brand.name %> logo" />
+                    <a href="/brands/<%= brand.id %>">
+                        <%= brand.name %>
+                    </a>
+                </div>
+                <% }); %>
+        </section>
+
+        <%- include('./partials/footer') %>
+</body>
+
+</html>
