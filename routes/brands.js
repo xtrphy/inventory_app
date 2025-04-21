@@ -15,19 +15,24 @@ router.get('/', async (req, res) => {
 
 
 router.get('/add-brand', (req, res) => {
-    res.render('add-brand');
+    res.render('add-brand', { errorMessage: null });
 });
 
 router.post('/add-brand', upload, async (req, res) => {
-    const { name } = req.body;
+    const { name, password } = req.body;
+    const correctPassword = 'admin';
     const image_url = req.file ? `uploads/${req.file.filename}` : null;
 
-    try {
-        await client.query('INSERT INTO brands (name, image_url) VALUES ($1, $2)', [name, image_url]);
-        res.redirect('/brands');
-    } catch (err) {
-        console.error('Error adding brand:', err);
-        res.status(500).send('Database error');
+    if (password === correctPassword) {
+        try {
+            await client.query('INSERT INTO brands (name, image_url) VALUES ($1, $2)', [name, image_url]);
+            res.redirect('/brands');
+        } catch (err) {
+            console.error('Error adding brand:', err);
+            res.status(500).send('Database error');
+        }
+    } else {
+        res.render('add-brand', { errorMessage: 'Wrong password!' });
     }
 });
 

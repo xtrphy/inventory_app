@@ -32,7 +32,8 @@ label {
 }
 
 input[type="text"],
-input[type="file"] {
+input[type="file"],
+input[type="password"] {
     width: 100%;
     padding: 0.8rem;
     margin-bottom: 1rem;
@@ -42,7 +43,8 @@ input[type="file"] {
 }
 
 input[type="text"]:focus,
-input[type="file"]:focus {
+input[type="file"]:focus,
+input[type="password"]:focus {
     border-color: #007bff;
     outline: none;
 }

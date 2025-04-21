@@ -19,10 +19,19 @@
             <label for="image_url">Image URL:</label>
             <input type="file" id="image" name="image" accept="image/*" required>
 
-            <div class="btns-container">
-                <button type="submit">Add Brand</button>
-                <a href="/">Cancel</a>
-            </div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Not 'admin'" required>
+
+            <% if (errorMessage) { %>
+                <p style="color: red;">
+                    <%= errorMessage %>
+                </p>
+                <% } %>
+
+                    <div class="btns-container">
+                        <button type="submit">Add Brand</button>
+                        <a href="/">Cancel</a>
+                    </div>
         </form>
 
     </div>

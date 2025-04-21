@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 router.get('/add-phone', async (req, res) => {
     try {
         const result = await client.query('SELECT * FROM brands');
-        res.render('add-phone', { brands: result.rows });
+        res.render('add-phone', { brands: result.rows, errorMessage: null });
     } catch (err) {
         console.error('Erro fetching database', err);
         res.status(500).send('Database error');
@@ -24,16 +24,27 @@ router.get('/add-phone', async (req, res) => {
 });
 
 router.post('/add-phone', upload, async (req, res) => {
-    const { name, price, stock, description, brand } = req.body;
+    const { name, price, stock, description, brand, password } = req.body;
+    const correctPassword = 'admin';
     const image_url = req.file ? `uploads/${req.file.filename}` : null;
 
-    try {
-        await client.query('INSERT INTO smartphones (model_name, price, stock_quantity, description, brand_id, image_url) VALUES ($1, $2, $3, $4, $5, $6)',
-            [name, price, stock, description, brand, image_url]);
-        res.redirect('/phones');
-    } catch (err) {
-        console.error('Error adding brand:', err);
-        res.status(500).send('Database error');
+    if (password === correctPassword) {
+        try {
+            await client.query('INSERT INTO smartphones (model_name, price, stock_quantity, description, brand_id, image_url) VALUES ($1, $2, $3, $4, $5, $6)',
+                [name, price, stock, description, brand, image_url]);
+            res.redirect('/phones');
+        } catch (err) {
+            console.error('Error adding brand:', err);
+            res.status(500).send('Database error');
+        }
+    } else {
+        try {
+            const result = await client.query('SELECT * FROM brands');
+            res.render('add-phone', { brands: result.rows, errorMessage: 'Wrong password!' });
+        } catch (err) {
+            console.error('Error fetching brands:', err);
+            res.status(500).send('Database error');
+        }
     }
 });
 
