@@ -14,9 +14,11 @@ app.use('/uploads', express.static('uploads'));
 // Routes
 const indexRouter = require('./routes/index');
 const brandsRouter = require('./routes/brands');
+const phonesRouter = require('./routes/phones');
 
 app.use('/', indexRouter);
 app.use('/brands', brandsRouter);
+app.use('/phones', phonesRouter);
 
 // =============================
 

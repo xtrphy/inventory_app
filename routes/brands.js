@@ -3,16 +3,22 @@ const router = express.Router();
 const client = require('../db/db');
 const upload = require('../upload');
 
-router.get('/', (req, res) => {
-    res.render('brands', { title: 'Brands Page' });
+router.get('/', async (req, res) => {
+    try {
+        const result = await client.query('SELECT * FROM brands');
+        res.render('brands', { title: 'All brands', brands: result.rows });
+    } catch (err) {
+        console.error('Error fetching brands:', err);
+        res.status(500).send('Database error');
+    }
 });
 
 
-router.get('/add', (req, res) => {
+router.get('/add-brand', (req, res) => {
     res.render('add-brand');
 });
 
-router.post('/add', upload, async (req, res) => {
+router.post('/add-brand', upload, async (req, res) => {
     const { name } = req.body;
     const image_url = req.file ? `uploads/${req.file.filename}` : null;
 
@@ -29,13 +35,19 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        const result = await client.query('SELECT * FROM brands WHERE id = $1', [id]);
+        const brands = await client.query('SELECT * FROM brands WHERE id = $1', [id]);
+        const phones = await client.query(`
+                SELECT smartphones.*, brands.name AS brand_name
+            FROM smartphones
+            JOIN brands ON smartphones.brand_id = brands.id
+            WHERE brands.id = $1
+            `, [id]);
 
-        if (result.rows.length === 0) {
+        if (brands.rows.length === 0) {
             res.status(404).send('Brand not found');
         }
 
-        res.render('brand', { brands: result.rows[0] });
+        res.render('brand', { brands: brands.rows[0], phones: phones.rows });
     } catch (err) {
         console.error('Error fetching brand by ID:', err);
         res.status(500).send('Database error');

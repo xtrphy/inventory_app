@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/header/header.css">
+    <link rel="stylesheet" href="/footer/footer.css">
+    <link rel="stylesheet" href="/phones.css">
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <%- include('./partials/header'); %>
+
+        <section class="hero">
+            <h1>
+                <%= title %>
+            </h1>
+            <div class="phones-container">
+                <% phones.forEach(phone=> { %>
+                    <div class="card">
+                        <img src="/<%= phone.image_url %>" alt="<%= phone.name %> logo" />
+                        <a href="/phones/<%= phone.id %>"></a>
+                        <p>
+                            <%= phone.model_name %>
+                        </p>
+                    </div>
+                    <% }); %>
+            </div>
+        </section>
+
+        <%- include('./partials/footer'); %>
+</body>
+
+</html>

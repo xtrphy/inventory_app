@@ -26,18 +26,18 @@
         </section>
 
         <section class="popular-brands">
-            <h2>Brands</h2>
-            <% brands.forEach(brand=> { %>
-                <div class="card">
-                    <h2>
-                        <%= brand.name %>
-                    </h2>
-                    <img src="<%= brand.image_url %>" alt="<%= brand.name %> logo" />
-                    <a href="/brands/<%= brand.id %>">
-                        <%= brand.name %>
-                    </a>
-                </div>
-                <% }); %>
+            <h2 class="popular-brands-title">Popular Brands</h2>
+            <div class="brands">
+                <% brands.forEach(brand=> { %>
+                    <div class="card">
+                        <img src="<%= brand.image_url %>" alt="<%= brand.name %> logo" />
+                        <a href="/brands/<%= brand.id %>"></a>
+                        <p>
+                            <%= brand.name %>
+                        </p>
+                    </div>
+                    <% }); %>
+            </div>
         </section>
 
         <%- include('./partials/footer') %>

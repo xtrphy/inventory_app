@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/add-phone/add-phone.css">
+    <title>Add New Phone</title>
+</head>
+
+<body>
+    <div class="form-container">
+        <h1>Add New Phone</h1>
+        <form action="/phones/add-phone" method="POST" enctype="multipart/form-data">
+            <label for="name">Model Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" required>
+
+            <label for="stock">Stock quantity:</label>
+            <input type="number" id="stock" name="stock" required>
+
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required>
+
+            <label for="brand">Brand:</label>
+            <select name="brand" id="brand">
+                <% brands.forEach(brand=> { %>
+                    <option value="<%= brand.id %>">
+                        <%= brand.name %>
+                    </option>
+                    <% }) %>
+            </select>
+
+            <label for="image_url">Image URL:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+
+            <div class="btns-container">
+                <button type="submit">Add Phone</button>
+                <a href="/">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

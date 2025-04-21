@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/header/header.css">
+    <link rel="stylesheet" href="/footer/footer.css">
+    <link rel="stylesheet" href="/phones.css">
+    <title>Page
+    </title>
+</head>
+
+<body>
+    <div class="page-content">
+        <%- include('./partials/header'); %>
+            <section class="phone-page">
+                <div class="phone-image">
+                    <img src="/<%= phone.image_url %>" alt="<%= phone.model_name %>">
+                </div>
+                <div class="phone-info">
+                    <h1 class="model-name">
+                        <%= phone.model_name %>
+                    </h1>
+                    <p class="price">$<%= phone.price %>
+                    </p>
+                    <p class="stock">Available: <%= phone.stock_quantity %>
+                    </p>
+                    <p class="description">
+                        <%= phone.description %>
+                    </p>
+
+                    <button class="order-btn">Order</button>
+                </div>
+            </section>
+    </div>
+
+    <%- include('./partials/footer'); %>
+</body>
+
+</html>
